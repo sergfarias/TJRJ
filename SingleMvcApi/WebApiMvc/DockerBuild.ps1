@@ -1,0 +1,1 @@
+ docker build -t webapimvc:1 -f .\src\WebApiMvc.Api\Dockerfile .
