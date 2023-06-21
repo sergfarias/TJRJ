@@ -3,7 +3,7 @@ using Azure.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Azure keyvault
-/*
+
 if (! builder.Environment.IsDevelopment())
 {
     builder.WebHost.ConfigureAppConfiguration(webBuilder =>
@@ -12,7 +12,7 @@ if (! builder.Environment.IsDevelopment())
                           new DefaultAzureCredential());
     });
 }
-*/
+
 // Add services to the container.
 
 builder.Services.RegisterDatabaseContext(builder.Configuration)
@@ -28,12 +28,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
+ // Configure the HTTP request pipeline.
+ if (app.Environment.IsDevelopment())
+ {
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 app.UseHttpsRedirection();
 
