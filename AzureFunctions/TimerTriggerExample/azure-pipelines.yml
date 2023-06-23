@@ -2,8 +2,8 @@ trigger:
   batch: true
   branches:
     include:
-      - master
-      - main
+      - dev
+      - qas
 
 variables:
   - name: project
@@ -23,7 +23,7 @@ variables:
   - name: BuildParameters.RestoreBuildProjects
     value: '**/*.csproj'
   - name: slotName
-    value: 'dev'
+    value: '$(Build.SourceBranchName)'
   - name: DeployPackage
     value: '$(Build.ArtifactStagingDirectory)/brf-fnc-complex-work'
 
@@ -64,7 +64,7 @@ jobs:
       appName: $(appName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
       resourceGroupName: $(resourceGroupName)
-      slotName: 'production'
+      slotName: '$(slotName)'
       deployToSlotOrASE: false
       deploymentMethod: 'auto'   
 
