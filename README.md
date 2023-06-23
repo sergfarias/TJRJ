@@ -29,9 +29,6 @@ As pastas estão organizadas com os seguintes exemplos:
   - brf-fnc-http-trigger: Função que recebe um payload via método post e faz a chamada para uma classe de serviço.                         
 
 
-# Projetos do tipo frontend - Angular, React
-...
-
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
@@ -46,7 +43,7 @@ TODO: Describe and show how to build your code and run the tests.
 # Links relacionados/material de apoio
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Visual Studio] (https://visualstudio.microsoft.com/pt-br/vs/)
+- [Visual Studio](https://visualstudio.microsoft.com/pt-br/vs/)
 - [Azure Functions](https://learn.microsoft.com/pt-br/azure/azure-functions/)
 - [Azure Functions Bindings](https://learn.microsoft.com/pt-br/azure/azure-functions/functions-triggers-bindings?tabs=csharp)
 
