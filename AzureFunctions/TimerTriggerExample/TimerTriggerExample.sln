@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brf-fnc-complex-work", "brf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brf-fnc-http-trigger", "..\brf-fnc-http-trigger\brf-fnc-http-trigger.csproj", "{4EFC72E7-A5FB-43A6-9E6E-945B86CF2AB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brf-fnc-http-sbus", "..\brf-fnc-http-sbus\brf-fnc-http-sbus.csproj", "{7C3471E9-756B-4850-A9D2-C3A64F8DE19F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4EFC72E7-A5FB-43A6-9E6E-945B86CF2AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EFC72E7-A5FB-43A6-9E6E-945B86CF2AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EFC72E7-A5FB-43A6-9E6E-945B86CF2AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3471E9-756B-4850-A9D2-C3A64F8DE19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3471E9-756B-4850-A9D2-C3A64F8DE19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3471E9-756B-4850-A9D2-C3A64F8DE19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3471E9-756B-4850-A9D2-C3A64F8DE19F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
