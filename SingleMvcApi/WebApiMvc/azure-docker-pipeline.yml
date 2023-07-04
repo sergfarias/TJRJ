@@ -13,13 +13,11 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-
-  #dockerRegistryServiceConnection: '5e865adf-36d5-4e71-987f-1bbe8407d84e'
   
   dockerRegistryServiceConnection: 'acrdevopsubuntu'
   imageRepository: 'webapimvc-template'
   containerRegistry: 'brfacrdevopsubuntu.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'SingleMvcApi/WebApiMvc/src/WebApiMvc.Api/Dockerfile'
   tag: '$(Build.BuildId)'
 
 
