@@ -1,3 +1,5 @@
+# Dockerfile para geração do Azure CR
+
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -9,9 +11,6 @@ RUN apt-get install -y mc
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR  /src
-CMD ["dir"]
-RUN ls -l /src
-RUN ls -l /home
 COPY ["src/WebApiMvc.Api/WebApiMvc.Api.csproj", "src/WebApiMvc.Api/"]
 COPY ["src/WebApiMvc.CrossCuting/WebApiMvc.CrossCuting.csproj", "src/WebApiMvc.CrossCuting/"]
 COPY ["src/WebApiMvc.Model/WebApiMvc.Model.csproj", "src/WebApiMvc.Model/"]
