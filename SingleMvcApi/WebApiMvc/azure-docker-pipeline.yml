@@ -16,7 +16,7 @@ variables:
 
   #dockerRegistryServiceConnection: '5e865adf-36d5-4e71-987f-1bbe8407d84e'
   
-  dockerRegistryServiceConnection: '5e865adf-36d5-4e71-987f-1bbe8407d84e'
+  dockerRegistryServiceConnection: 'acrdevopsubuntu'
   imageRepository: 'webapimvc-template'
   containerRegistry: 'brfacrdevopsubuntu.azurecr.io'
   dockerfilePath: '**/Dockerfile'
