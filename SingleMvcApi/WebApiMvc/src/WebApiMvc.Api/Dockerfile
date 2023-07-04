@@ -10,7 +10,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR  /src
 CMD ["dir"]
-COPY ["SingleMvcApi/WebApiMvc/src/WebApiMvc.Api//WebApiMvc.Api.csproj", "src/WebApiMvc.Api/"]
+RUN ls -l
+COPY ["SingleMvcApi/WebApiMvc/src/WebApiMvc.Api/WebApiMvc.Api.csproj", "src/WebApiMvc.Api/"]
 COPY ["src/WebApiMvc.CrossCuting/WebApiMvc.CrossCuting.csproj", "src/WebApiMvc.CrossCuting/"]
 COPY ["src/WebApiMvc.Model/WebApiMvc.Model.csproj", "src/WebApiMvc.Model/"]
 COPY ["src/WebApiMvc.Repository/WebApiMvc.Repository.csproj", "src/WebApiMvc.Repository/"]
