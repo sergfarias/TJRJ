@@ -17,7 +17,7 @@ variables:
   dockerRegistryServiceConnection: 'acrdevopsubuntu'
   imageRepository: 'webapimvc-template'
   containerRegistry: 'brfacrdevopsubuntu.azurecr.io'
-  dockerfilePath: 'SingleMvcApi/WebApiMvc/src/WebApiMvc.Api/Dockerfile'
+  dockerfilePath: 'SingleMvcApi/WebApiMvc/src/Dockerfile'
   tag: '$(Build.BuildId)'
 
 
