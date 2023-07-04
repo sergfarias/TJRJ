@@ -1,18 +1,15 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# Docker file para uso local
+
+
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-#RUN apt-get update && apt-get upgrade -y
-#RUN apt-get install -y htop
-#RUN apt-get install -y mc
-
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR  /src
-CMD ["dir"]
-RUN ls -l /src
-RUN ls -l /home
-COPY ["SingleMvcApi/WebApiMvc/src/WebApiMvc.Api/WebApiMvc.Api.csproj", "src/WebApiMvc.Api/"]
+WORKDIR /src
+COPY ["src/WebApiMvc.Api/WebApiMvc.Api.csproj", "src/WebApiMvc.Api/"]
 COPY ["src/WebApiMvc.CrossCuting/WebApiMvc.CrossCuting.csproj", "src/WebApiMvc.CrossCuting/"]
 COPY ["src/WebApiMvc.Model/WebApiMvc.Model.csproj", "src/WebApiMvc.Model/"]
 COPY ["src/WebApiMvc.Repository/WebApiMvc.Repository.csproj", "src/WebApiMvc.Repository/"]
