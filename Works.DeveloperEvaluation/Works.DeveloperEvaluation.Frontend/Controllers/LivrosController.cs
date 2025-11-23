@@ -146,6 +146,24 @@ namespace Works.DeveloperEvaluation.Frontend.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+
+        // GET: Relatorio
+        public async Task<ViewResult> Relatorio()
+        {
+            try
+            {
+                var livros = await _livroService.Relatorio();
+                return View(livros);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Erro ao carregar livros: {ex.Message}";
+                return View();
+            }
+        }
+
+
     }
 }
 

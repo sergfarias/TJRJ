@@ -40,5 +40,6 @@ public interface ILivroRepository
     Task<Livro?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     Task<List<Livro>?> GetLivrosAsync(CancellationToken cancellationToken = default);
-    
+
+    Task<List<LivroDetalhesView>> Relatorio(CancellationToken cancellationToken = default);
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Works.DeveloperEvaluation.Domain.Entities;
 using Works.DeveloperEvaluation.Domain.Repositories;
 namespace Works.DeveloperEvaluation.ORM.Repositories;
@@ -83,5 +84,20 @@ public class LivroRepository : ILivroRepository
     {
         return await _context.Livro.ToListAsync(cancellationToken: cancellationToken);
     }
-    
+
+    public async Task<List<LivroDetalhesView>> Relatorio(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var livrosDetalhes = await _context.LivroDetalhesView.ToListAsync(cancellationToken: cancellationToken);
+            return livrosDetalhes;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+
+
 }

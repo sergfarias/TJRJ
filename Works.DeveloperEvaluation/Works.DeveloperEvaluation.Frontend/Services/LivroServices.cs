@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Text.Json;
 using Livro = Works.DeveloperEvaluation.Frontend.Models.Livro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.RelatorioLivro;
 
 namespace Works.DeveloperEvaluation.Frontend.Services
 {
@@ -116,6 +117,33 @@ namespace Works.DeveloperEvaluation.Frontend.Services
             var response = await _httpClient.DeleteAsync($"api/livros/deletarlivro/{id}");
             response.EnsureSuccessStatusCode();
         }
+
+
+        public async Task<IEnumerable> Relatorio()
+        {
+            var response = await _httpClient.GetAsync("api/livros/RelatorioLivros");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Se o JSON tem uma estrutura como: { "data": [...], "success": true }
+            using JsonDocument document = JsonDocument.Parse(content);
+            JsonElement root = document.RootElement;
+
+            // Pegar o nó específico "data"
+            JsonElement dataElement = root.GetProperty("data").GetProperty("data");
+
+            var teste = JsonSerializer.Deserialize<IEnumerable<RelatorioLivroResponse>>(
+                dataElement.GetRawText(),
+                _jsonOptions
+            );
+
+            return teste;
+
+        }
+
+
+
     }
 }
 

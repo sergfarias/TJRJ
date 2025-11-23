@@ -12,6 +12,8 @@ public class Context : DbContext
     public DbSet<LivroAssunto> Livro_Assunto { get; set; }
     public DbSet<LivroAutor> Livro_Autor { get; set; }
 
+    public DbSet<LivroDetalhesView> LivroDetalhesView { get; set; }
+
     public Context(DbContextOptions<Context> options) : base(options)
     {
     }
@@ -40,8 +42,6 @@ public class Context : DbContext
        .WithMany()
        .HasForeignKey(t => t.Assunto_CodAs);
 
-
-
         modelBuilder.Entity<LivroAutor>()
             .HasKey(a => new { a.Livro_CodL, a.Autor_CodAu });
 
@@ -54,6 +54,12 @@ public class Context : DbContext
        .HasOne(t => t.Autor)
        .WithMany()
        .HasForeignKey(t => t.Autor_CodAu);
+
+        modelBuilder.Entity<LivroDetalhesView>(entity =>
+        {
+            entity.HasNoKey(); // VIEW não tem chave primária
+            entity.ToView("vw_LivrosDetalhes"); // Nome da VIEW no banco
+        });
 
 
     }

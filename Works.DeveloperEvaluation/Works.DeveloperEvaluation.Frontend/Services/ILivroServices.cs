@@ -12,5 +12,6 @@ namespace Works.DeveloperEvaluation.Frontend.Services
         Task<ListarLivroResponse> CreateAsync(Livro livro);
         Task UpdateAsync(int id, Livro livro);
         Task DeleteAsync(int id);
+        Task<IEnumerable> Relatorio();
     }
 }

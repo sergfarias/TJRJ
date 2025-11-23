@@ -1,0 +1,52 @@
+﻿@model IList<Works.DeveloperEvaluation.WebApi.Features.Livros.RelatorioLivro.RelatorioLivroResponse>
+
+@{
+    ViewData["Title"] = "Relatório de Livros";
+}
+
+<h1>Livros</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@* 
+<p>
+    <a asp-action="Create" class="btn btn-primary">Criar Novo Livro</a>
+</p> *@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Editora</th>
+            @* <th>Preço</th> *@
+            <th>Edição</th>
+            <th>Ano publicação</th>
+            <th>Autor</th>
+            <th>Assunto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CodL</td>
+                <td>@item.Titulo</td>
+                <td>@item.Editora</td>
+               @*  <td>@item.Preco.ToString("C")</td> *@
+                <td>@item.Edicao</td>
+                <td>@item.AnoPublicacao</td>
+                <td>@item.Autor</td>
+                <td>@item.Assunto</td>
+            </tr>
+        }
+    </tbody>
+</table>
+```

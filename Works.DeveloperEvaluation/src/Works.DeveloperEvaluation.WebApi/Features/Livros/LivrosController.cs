@@ -1,17 +1,19 @@
-﻿using MediatR;
-using AutoMapper;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Works.DeveloperEvaluation.WebApi.Common;
-using Works.DeveloperEvaluation.Application.Livros.ListarLivro;
-using Works.DeveloperEvaluation.Application.Livros.InserirLivro;
-using Works.DeveloperEvaluation.WebApi.Features.Livros.ListarLivro;
 using Works.DeveloperEvaluation.Application.Livros.AlterarLivro;
-using Works.DeveloperEvaluation.WebApi.Features.Livros.InserirLivro;
-using Works.DeveloperEvaluation.WebApi.Features.Livros.AlterarLivro;
-using Works.DeveloperEvaluation.WebApi.Features.Livros.BuscarLivro;
 using Works.DeveloperEvaluation.Application.Livros.BuscarLivro;
 using Works.DeveloperEvaluation.Application.Livros.DeletarLivro;
+using Works.DeveloperEvaluation.Application.Livros.InserirLivro;
+using Works.DeveloperEvaluation.Application.Livros.ListarLivro;
+using Works.DeveloperEvaluation.Application.Livros.RelatorioLivro;
+using Works.DeveloperEvaluation.WebApi.Common;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.AlterarLivro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.BuscarLivro;
 using Works.DeveloperEvaluation.WebApi.Features.Livros.DeletarLivro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.InserirLivro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.ListarLivro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.RelatorioLivro;
 namespace Works.DeveloperEvaluation.WebApi.Features.Livros;
 
 /// <summary>
@@ -173,7 +175,33 @@ public class LivrosController : BaseController
             Message = "Projeto(s) do usuário recuperado(s) com sucesso!",
             Data =_mapper.Map<List<ListarLivroResponse>>(response)
         });
+    }
+
+    /// <summary>
+    /// Retrieves a project by their IDUser
+    /// </summary>
+    /// <param name="id">The unique identifier of the user</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The user details if found</returns>
+    [HttpGet("RelatorioLivros")]
+    [ProducesResponseType(typeof(ApiResponseWithData<RelatorioLivroResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> RelatorioLivro([FromRoute] CancellationToken cancellationToken)
+    {
+        var request = new RelatorioLivroRequest { };
+
+        var command = _mapper.Map<RelatorioLivroCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(new ApiResponseWithData<List<RelatorioLivroResponse>>
+        {
+            Success = true,
+            Message = "Projeto(s) do usuário recuperado(s) com sucesso!",
+            Data = _mapper.Map<List<RelatorioLivroResponse>>(response)
+        });
 
     }
+
 
 }
