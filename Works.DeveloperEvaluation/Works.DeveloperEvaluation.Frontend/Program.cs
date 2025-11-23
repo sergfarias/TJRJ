@@ -19,6 +19,17 @@ builder.Services.AddHttpClient<ILivroServices, LivroServices>((serviceProvider, 
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
+builder.Services.AddHttpClient<IAutorServices, AutorServices>((serviceProvider, client) =>
+{
+    client.BaseAddress = new Uri("https://localhost:7181/"); // URL da sua API
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+builder.Services.AddHttpClient<IAssuntoServices, AssuntoServices>((serviceProvider, client) =>
+{
+    client.BaseAddress = new Uri("https://localhost:7181/"); // URL da sua API
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
 
 var app = builder.Build();

@@ -11,7 +11,6 @@ namespace Works.DeveloperEvaluation.Application.Assuntos.AlterarAssunto;
 public class AlterarAssuntoHandler : IRequestHandler<AlterarAssuntoCommand, AlterarAssuntoResult>
 {
     private readonly IAssuntoRepository _assuntoRepository;
-    //private readonly ITaskRepository _taskRepository;
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -37,22 +36,10 @@ public class AlterarAssuntoHandler : IRequestHandler<AlterarAssuntoCommand, Alte
         }
         else
         {
-            //Deleta itens antigos
-            //await _taskRepository.DeleteTasksAsync(projectDB.Id, cancellationToken);
-
-            //foreach (var item in project.Tasks)
-            //{
-            //    item.ProjectId = projectDB.Id;
-            //    item.UpdatedAt = DateTime.Now;
-            //    projectDB.Tasks.Add(item);
-            //}
-
-            //projectDB.UpdatedAt = DateTime.Now;
-
+            livroDB.Descricao = assunto.Descricao;
             var alterarLivro = await _assuntoRepository.UpdateAsync(livroDB, cancellationToken);
             var result = _mapper.Map<AlterarAssuntoResult>(alterarLivro);
             return result;
-
         }
 
     }

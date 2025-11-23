@@ -1,14 +1,21 @@
 ﻿using AutoMapper;
-using Works.DeveloperEvaluation.Application.Assuntos.AlterarAssunto;
-using Works.DeveloperEvaluation.Application.Assuntos.InserirAssunto;
-using Works.DeveloperEvaluation.Application.Assuntos.ListarAssunto;
-using Works.DeveloperEvaluation.WebApi.Common;
-using Works.DeveloperEvaluation.WebApi.Features.Assuntos.InserirAssunto;
-using Works.DeveloperEvaluation.WebApi.Features.Assuntos.AlterarAssunto;
-using Works.DeveloperEvaluation.WebApi.Features.Assuntos.InserirAssunto;
-using Works.DeveloperEvaluation.WebApi.Features.Assuntos.ListarAssunto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Works.DeveloperEvaluation.Application.Assuntos.AlterarAssunto;
+using Works.DeveloperEvaluation.Application.Assuntos.BuscarAssunto;
+using Works.DeveloperEvaluation.Application.Assuntos.DeletarAssunto;
+using Works.DeveloperEvaluation.Application.Assuntos.InserirAssunto;
+using Works.DeveloperEvaluation.Application.Assuntos.ListarAssunto;
+using Works.DeveloperEvaluation.Application.Livros.BuscarLivro;
+using Works.DeveloperEvaluation.Application.Livros.DeletarLivro;
+using Works.DeveloperEvaluation.Application.Livros.ListarLivro;
+using Works.DeveloperEvaluation.WebApi.Common;
+using Works.DeveloperEvaluation.WebApi.Features.Assuntos.AlterarAssunto;
+using Works.DeveloperEvaluation.WebApi.Features.Assuntos.BuscarAssunto;
+using Works.DeveloperEvaluation.WebApi.Features.Assuntos.InserirAssunto;
+using Works.DeveloperEvaluation.WebApi.Features.Assuntos.ListarAssunto;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.BuscarLivro;
+using Works.DeveloperEvaluation.WebApi.Features.Livros.ListarLivro;
 namespace Works.DeveloperEvaluation.WebApi.Features.Assuntos;
 
 /// <summary>
@@ -89,28 +96,87 @@ public class AssuntosController : BaseController
     }
 
     /// <summary>
+    /// Modified a project
+    /// </summary>
+    /// <param name="request">The project Modified request</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The Modified project details</returns>
+    [HttpDelete("DeletarAssunto/{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<DeletarAssuntoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeletarAssunto([FromRoute] int Id, CancellationToken cancellationToken)
+    {
+        //var validator = new DeletarLivroRequestValidator();
+        //var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        //if (!validationResult.IsValid)
+        //    return BadRequest(validationResult.Errors);
+
+        //var request = new BuscarLivroRequest { CodL = Id };
+
+        var command = new DeletarAssuntoCommand(Id); ///_mapper.Map<DeletarLivroCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Created(string.Empty, new ApiResponseWithData<DeletarAssuntoResponse>
+        {
+            Success = true,
+            Message = "Assunto deletado com sucesso!",
+            Data = _mapper.Map<DeletarAssuntoResponse>(response)
+        });
+    }
+
+
+
+
+    /// <summary>
     /// Retrieves a project by their IDUser
     /// </summary>
     /// <param name="id">The unique identifier of the user</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The user details if found</returns>
-    //[HttpGet("AssuntoById/{id}")]
-    //[ProducesResponseType(typeof(ApiResponseWithData<ListarAssuntoResponse>), StatusCodes.Status200OK)]
-    //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    //public async Task<IActionResult> ListProjectByIdUser([FromRoute] Guid idUser, CancellationToken cancellationToken)
-    //{
-    //    var request = new ListProjectRequest { IdUser = idUser };
-        
-    //    var command = _mapper.Map<ListarAssuntoCommand>(request);
-    //    var response = await _mediator.Send(command, cancellationToken);
+    [HttpGet("AssuntoById/{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<BuscarAssuntoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AssuntoById([FromRoute] int Id, CancellationToken cancellationToken)
+    {
+        var request = new BuscarAssuntoRequest { CodAs = Id };
 
-    //    return Ok(new ApiResponseWithData<List<ListarAssuntoResponse>>
-    //    {
-    //        Success = true,
-    //        Message = "Projeto(s) do usuário("+ idUser + ") recuperado(s) com sucesso!",
-    //        Data = _mapper.Map<List<ListarAssuntoResponse>>(response)
-    //    });
-    //}
+        var command = _mapper.Map<BuscarAssuntoCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
 
+        return Ok(new ApiResponseWithData<BuscarAssuntoResponse>
+        {
+            Success = true,
+            Message = "Assunto do código(" + Id + ") recuperado(s) com sucesso!",
+            Data = _mapper.Map<BuscarAssuntoResponse>(response)
+        });
+    }
+
+
+    /// <summary>
+    /// Retrieves a project by their IDUser
+    /// </summary>
+    /// <param name="id">The unique identifier of the user</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The user details if found</returns>
+    [HttpGet("TodosAssuntos")]
+    [ProducesResponseType(typeof(ApiResponseWithData<ListarAssuntoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ListarAssunto([FromRoute] CancellationToken cancellationToken)
+    {
+        var request = new ListarAssuntoRequest { };
+
+        var command = _mapper.Map<ListarAssuntoCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(new ApiResponseWithData<List<ListarAssuntoResponse>>
+        {
+            Success = true,
+            Message = "Assunto recuperado(s) com sucesso!",
+            Data = _mapper.Map<List<ListarAssuntoResponse>>(response)
+        });
+
+    }
 }

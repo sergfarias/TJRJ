@@ -37,17 +37,8 @@ public class AlterarAutorHandler : IRequestHandler<AlterarAutorCommand, AlterarA
         }
         else
         {
-            //Deleta itens antigos
-            //await _taskRepository.DeleteTasksAsync(projectDB.Id, cancellationToken);
-
-            //foreach (var item in project.Tasks)
-            //{
-            //    item.ProjectId = projectDB.Id;
-            //    item.UpdatedAt = DateTime.Now;
-            //    projectDB.Tasks.Add(item);
-            //}
-
-            //projectDB.UpdatedAt = DateTime.Now;
+            
+            livroDB.Nome = autor.Nome;
 
             var alterarLivro = await _autorRepository.UpdateAsync(livroDB, cancellationToken);
             var result = _mapper.Map<AlterarAutorResult>(alterarLivro);
