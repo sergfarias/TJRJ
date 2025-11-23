@@ -1,16 +1,20 @@
 ﻿using Works.DeveloperEvaluation.Frontend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Livro = Works.DeveloperEvaluation.Frontend.Models.Livro;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace Works.DeveloperEvaluation.Frontend.Controllers
 {
     public class LivrosController: Controller
     {
         readonly ILivroServices _livroService;
-
-        public LivrosController(ILivroServices livroService)
+        readonly IAutorServices _autorService;
+        readonly IAssuntoServices _assuntoService;
+        public LivrosController(ILivroServices livroService, IAutorServices autorService, IAssuntoServices assuntoService)
         {
             _livroService = livroService;
+            _autorService = autorService;
+            _assuntoService = assuntoService;
         }
 
         // GET: Livros
@@ -19,8 +23,6 @@ namespace Works.DeveloperEvaluation.Frontend.Controllers
             try
             {
                 var livros = await _livroService.GetAllAsync();
-
-                //iew("_TurmaList", "_Modal", modelClass)
                 return View(livros);
             }
             catch (Exception ex)
@@ -45,8 +47,10 @@ namespace Works.DeveloperEvaluation.Frontend.Controllers
         }
 
         // GET: Livros/Create
-        public IActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewBag.Autores = await _autorService.GetAllAsync();
+            ViewBag.Assuntos = await _assuntoService.GetAllAsync();
             return View();
         }
 
@@ -60,6 +64,8 @@ namespace Works.DeveloperEvaluation.Frontend.Controllers
                 try
                 {
                     await _livroService.CreateAsync(livro);
+                    ViewBag.Autores = await _autorService.GetAllAsync();
+                    ViewBag.Assuntos = await _assuntoService.GetAllAsync();
                     TempData["Success"] = "Livro criado com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }
@@ -95,6 +101,7 @@ namespace Works.DeveloperEvaluation.Frontend.Controllers
                 try
                 {
                     await _livroService.UpdateAsync(id, livro);
+                    ViewBag.Autores = _autorService.GetAllAsync();
                     TempData["Success"] = "Livro atualizado com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }

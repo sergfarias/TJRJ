@@ -41,6 +41,35 @@
                     <input asp-for="AnoPublicacao" class="form-control" />
                     <span asp-validation-for="AnoPublicacao" class="text-danger"></span>
                 </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Autor</label>
+                    <select multiple name="Autor" id="autor" class="select2 autor form-control" data-allow-clear="true">
+                        <option value="0">Selecione</option>
+                        @if (@ViewBag.Autores != null)
+                        {
+                            @foreach (var autor in @ViewBag.Autores)
+                            {
+                                <option value="@autor.CodAu">@autor.Nome</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Assunto</label>
+                    <select multiple name="Assunto" id="assunto" class="select2 assunto form-control" data-allow-clear="true">
+                        <option value="0">Selecione</option>
+                        @if (@ViewBag.Assuntos != null)
+                        {
+                            @foreach (var assunto in @ViewBag.Assuntos)
+                            {
+                                <option value="@assunto.CodAu">@assunto.Descricao</option>
+                            }
+                        }
+                    </select>
+                </div>
+
           
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
